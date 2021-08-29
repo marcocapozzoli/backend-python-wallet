@@ -27,6 +27,17 @@ class Buy(models.Model):
     date = models.DateTimeField('Sale date')
     cash = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
 
+    @staticmethod
+    def get_percentual_cashback(value):
+        if value > 250 and value <= 500:
+            return 3.5
+        elif value > 500 and value <= 1000:
+            return 5.0
+        elif value > 1000:
+            return 8.0
+        else:
+            return 1.5
+    
     def __str__(self):
         return self.amount
 
