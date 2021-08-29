@@ -1,4 +1,5 @@
 from django.db import models
+import decimal
 
 
 class Customer(models.Model):
@@ -28,7 +29,7 @@ class Buy(models.Model):
     cash = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
 
     @staticmethod
-    def get_percentual_cashback(value):
+    def get_percentage_cashback(value):
         if value > 250 and value <= 500:
             return 3.5
         elif value > 500 and value <= 1000:
@@ -37,6 +38,14 @@ class Buy(models.Model):
             return 8.0
         else:
             return 1.5
+    
+    def save(self, **kwargs):
+        
+        # calculate cashback
+        percentage = self.get_percentage_cashback(self.amount)
+        self.cash = decimal.Decimal(percentage / 100) * self.amount
+        
+        super(Buy, self).save(**kwargs)
     
     def __str__(self):
         return self.amount
