@@ -20,3 +20,31 @@ class BuySerializer(serializers.ModelSerializer):
     class Meta:
         model = Buy
         fields = ['id', 'date', 'customer', 'products', 'amount', 'cashback']
+    
+    
+    def create(self, validated_data):
+
+        customer = validated_data.pop('customer')
+        products = validated_data.pop('products')
+        
+        instance = Buy.objects.create(**validated_data)
+        
+        clients = Customer.objects.all()
+        cpf_list = []
+        for client in clients:
+            cpf_list.append(client.cpf)
+        
+        if not customer['cpf'] in cpf_list:
+            cliente_obj = Customer.objects.create(**customer)
+        else:
+            cliente_obj = Customer.objects.get(cpf=customer['cpf'])
+            
+        instance.customer = cliente_obj
+        
+        for product in products:
+            product_obj = Product.objects.create(**product)
+            instance.products.add(product_obj)                  
+        
+        instance.save()
+                        
+        return instance
