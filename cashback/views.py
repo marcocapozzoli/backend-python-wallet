@@ -19,7 +19,7 @@ class BuyViewSet(viewsets.ModelViewSet):
         buys = self.queryset.order_by('-id')
         last_buy = buys[0]
         document = last_buy.customer.cpf
-        cashback = last_buy.cashback
+        cashback = last_buy.cash
         
         response_api_maisTodos = call_api_maisTodos(document,cashback)
         
