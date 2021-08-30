@@ -1,5 +1,7 @@
 from rest_framework import serializers
+
 from cashback.models import Customer, Product, Buy
+from cashback.validators import validate_cpf, validate_amount
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -21,6 +23,16 @@ class BuySerializer(serializers.ModelSerializer):
         model = Buy
         fields = ['id', 'date', 'customer', 'products', 'amount', 'cashback']
     
+    def validate(self, data):
+        if not validate_cpf(data['customer']['cpf']):
+            raise serializers.ValidationError(
+                {'cpf': 'CPF inválido.'}
+            )
+        if not validate_amount(data):
+            raise serializers.ValidationError(
+                {'amount': 'Soma errada dos valores.'}
+            )             
+        return data    
     
     def create(self, validated_data):
 
