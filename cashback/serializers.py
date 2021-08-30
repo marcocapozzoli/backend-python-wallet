@@ -22,6 +22,13 @@ class BuySerializer(serializers.ModelSerializer):
     class Meta:
         model = Buy
         fields = ['id', 'date', 'customer', 'products', 'amount', 'cashback']
+        extra_kwargs = {
+            'date': {
+                'error_messages': {
+                    'invalid': 'Formato inválido para data e hora. Use o seguinte formato: YYYY-MM-DD hh:mm:ss'
+                }
+            }
+        }        
     
     def validate(self, data):
         if not validate_cpf(data['customer']['cpf']):
