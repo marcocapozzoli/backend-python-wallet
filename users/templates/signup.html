@@ -1,0 +1,30 @@
+{% extends "base_auth.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}SignUp{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 form-centralized">
+        <h1 class="h2 mb-4 fw-normal" style="text-align: center;">SignUp</h1>
+        <div class="card shadow">
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div style="padding: 10px 0 10px 0;">{{ form.username|as_crispy_field }}</div>
+                    <div>{{ form.email|as_crispy_field }}</div>
+                    <div style="padding: 10px 0 10px 0;">{{ form.password1|as_crispy_field }}</div>
+                    <div>{{ form.password2|as_crispy_field }}</div><br><br>
+                    <div>
+                        <button type="submit" style="margin-bottom: 10px;" class="w-100 btn btn-lg btn-primary">
+                            Cadastrar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div><br> 
+    </div>
+    <div class="col-md-4"></div>  
+</div>
+{% endblock %}
