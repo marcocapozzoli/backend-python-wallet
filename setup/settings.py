@@ -127,7 +127,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 # Login and logout URL
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/api'
 LOGOUT_REDIRECT_URL = '/'
 
 # Django-crispy
