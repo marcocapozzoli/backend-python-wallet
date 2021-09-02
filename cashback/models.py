@@ -26,7 +26,7 @@ class Buy(models.Model):
     products = models.ManyToManyField(Product)
     amount = models.DecimalField('Total', max_digits=8, decimal_places=2, blank=True, null=True)
     date = models.DateTimeField('Sale date')
-    cash = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    cashback = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
 
     @staticmethod
     def get_percentage_cashback(value):
@@ -43,7 +43,7 @@ class Buy(models.Model):
         
         # calculate cashback
         percentage = self.get_percentage_cashback(self.amount)
-        self.cash = decimal.Decimal(percentage / 100) * self.amount
+        self.cashback = decimal.Decimal(percentage / 100) * self.amount
         
         super(Buy, self).save(**kwargs)
     
@@ -55,7 +55,7 @@ class APIMaisTodos(models.Model):
     createdAt = models.CharField(max_length=64)
     message = models.CharField(max_length=64)
     document = models.CharField(max_length=11)
-    cashback = models.CharField(max_length=12)
+    cashback_mt = models.CharField(max_length=12)
     
     def __str__(self):
-        return self.cashback
+        return self.cashback_mt
