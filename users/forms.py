@@ -12,23 +12,23 @@ class CustomUserCreationForm(UserCreationForm):
 class SignUpForm(CustomUserCreationForm):
     
     username = forms.CharField(
-        label='',
-        widget=forms.TextInput(attrs={'placeholder': 'Escolha um nome de usuário'}),
+        label='Usuário',
+        widget=forms.TextInput(),
         max_length=20,
         error_messages={'unique': 'Já existe um usuário cadastrado com esse nome.'}
     )
     email = forms.EmailField(
-        label='',
-        widget=forms.TextInput(attrs={'placeholder': 'Email'})    
+        label='Email',
+        widget=forms.TextInput()    
     )
     password1 = forms.CharField(
-        label="",
+        label='Senha',
         strip=False,
-        widget=forms.PasswordInput(attrs={'placeholder': 'Senha'}),
+        widget=forms.PasswordInput(),
     )
     password2 = forms.CharField(
-        label="",
-        widget=forms.PasswordInput(attrs={'placeholder': 'Confirme sua senha'}),
+        label='Confirme a senha',
+        widget=forms.PasswordInput(),
         strip=False,
     )
     
