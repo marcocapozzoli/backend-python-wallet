@@ -119,3 +119,56 @@ class BuySerializerTestCase(APITestCase):
         }
         serializer = BuySerializer(data=data)
         self.assertEqual(serializer.is_valid(), True)
+
+    def test_buy_wrong_validate_amount(self):
+        """test that checks the validation of the incorrect sum"""
+        data = {
+            "customer":{
+                "name":"maistodos",
+                "cpf":"40495330060"
+            },
+            "products":[
+                {
+                    "description": "product1",
+                    "type": "A",
+                    "price": 100,
+                    "quantity": 5
+                },
+                {
+                    "description": "product2",
+                    "type": "B",
+                    "price": 200,
+                    "quantity": 7
+                },
+            ],
+            "amount":100
+        }
+        serializer = BuySerializer(data=data)
+        self.assertEqual(serializer.is_valid(), False)
+        self.assertEqual(set(serializer.errors.keys()), set(['amount']))
+
+    def test_buy_correct_validate_amount(self):
+        """test that checks the validation of the correct sum"""
+        data = {
+            "customer":{
+                "name":"maistodos",
+                "cpf":"40495330060"
+            },
+            "products":[
+                {
+                    "description": "product1",
+                    "type": "A",
+                    "price": 100,
+                    "quantity": 5
+                },
+                {
+                    "description": "product2",
+                    "type": "B",
+                    "price": 200,
+                    "quantity": 7
+                },
+            ],
+            "amount":1900
+        }
+        serializer = BuySerializer(data=data)
+        self.assertEqual(serializer.is_valid(), True)
