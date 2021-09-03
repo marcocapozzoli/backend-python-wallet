@@ -33,3 +33,24 @@ class BuyViewSetTestCase(APITestCase):
         self.client.force_authenticate(user=None)
         response = self.client.get(self.list_url)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_buy_create(self):
+        """test that checks if the customer can create a purchase"""
+        data = {
+            "date": "2021-10-29 08:03:10",
+            "customer":{
+                "name":"maistodos",
+                "cpf":"19738091098"
+            },
+            "products": [
+                {
+                    "description": "product1",
+                    "type": "A",
+                    "price": 100.0,
+                    "quantity": 3
+                }
+            ],
+            "amount": 300.0
+        }
+        response = self.client.post(self.list_url, data=data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
