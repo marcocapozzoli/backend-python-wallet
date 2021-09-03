@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'drf_yasg',
-    'crispy_forms',
     
     # Local apps
     'cashback',
