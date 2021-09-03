@@ -67,3 +67,4 @@ class BuySerializer(serializers.ModelSerializer):
         instance.save()
                         
         return instance
+    

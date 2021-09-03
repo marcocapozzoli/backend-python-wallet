@@ -10,7 +10,7 @@ from cashback.serializers import BuySerializer, ProductSerializer, CustomerSeria
 class BuyViewSet(viewsets.ModelViewSet):
     queryset = Buy.objects.all()
     serializer_class = BuySerializer    
-    
+       
     def create(self, request, *args, **kwargs):
         serializer = BuySerializer(data=request.data)
         serializer.is_valid(self)
@@ -19,11 +19,11 @@ class BuyViewSet(viewsets.ModelViewSet):
         buys = self.queryset.order_by('-id')
         last_buy = buys[0]
         document = last_buy.customer.cpf
-        cashback = last_buy.cash
+        cashback = last_buy.cashback
         
-        response_api_maisTodos = call_api_maisTodos(document,cashback)
+        #response_api_maisTodos = call_api_maisTodos(document,cashback)
         
-        return Response(response_api_maisTodos, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
    
 class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer

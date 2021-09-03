@@ -1,5 +1,6 @@
 from django.db import models
 import decimal
+from django.utils import timezone
 
 
 class Customer(models.Model):
@@ -15,7 +16,7 @@ class Product(models.Model):
     
     description = models.CharField(max_length=64, default="")
     type = models.CharField('Category', max_length=1, choices=Category, blank=False)
-    price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    price = models.FloatField(blank=False, null=False)
     quantity = models.IntegerField('Quantity', blank=False, null=False, default=1)
     
     def __str__(self):
@@ -24,9 +25,9 @@ class Product(models.Model):
 class Buy(models.Model):
     customer = models.ForeignKey(Customer, related_name='customers', null=True, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product)
-    amount = models.DecimalField('Total', max_digits=8, decimal_places=2, blank=True, null=True)
-    date = models.DateTimeField('Sale date')
-    cashback = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    amount = models.FloatField('Total', blank=False, null=False)
+    date = models.DateTimeField('Sale date', default=timezone.now)
+    cashback = models.FloatField(blank=False, null=False)
 
     @staticmethod
     def get_percentage_cashback(value):
@@ -43,12 +44,12 @@ class Buy(models.Model):
         
         # calculate cashback
         percentage = self.get_percentage_cashback(self.amount)
-        self.cashback = decimal.Decimal(percentage / 100) * self.amount
+        self.cashback = round((percentage / 100) * self.amount, 2)
         
         super(Buy, self).save(**kwargs)
     
     def __str__(self):
-        return self.amount
+        return f'{self.amount}'
 
 
 class APIMaisTodos(models.Model):
@@ -58,4 +59,4 @@ class APIMaisTodos(models.Model):
     cashback_mt = models.CharField(max_length=12)
     
     def __str__(self):
-        return self.cashback_mt
+        return f'{self.cashback_mt}'
