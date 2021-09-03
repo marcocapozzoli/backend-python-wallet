@@ -54,3 +54,8 @@ class BuyViewSetTestCase(APITestCase):
         }
         response = self.client.post(self.list_url, data=data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_buy_detail(self):
+        """test that verifies if the customer can access a specific purchase"""
+        response = self.client.get(reverse('buy-detail', kwargs={'pk':1}))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
