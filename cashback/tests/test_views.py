@@ -27,3 +27,9 @@ class BuyViewSetTestCase(APITestCase):
         """test that verifies that the authenticated client can access the API"""
         response = self.client.get(self.list_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_buy_list_un_authorized(self):
+        """test that verifies that the unauthenticated client can access the API"""
+        self.client.force_authenticate(user=None)
+        response = self.client.get(self.list_url)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
