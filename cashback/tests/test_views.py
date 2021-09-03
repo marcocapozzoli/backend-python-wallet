@@ -59,3 +59,8 @@ class BuyViewSetTestCase(APITestCase):
         """test that verifies if the customer can access a specific purchase"""
         response = self.client.get(reverse('buy-detail', kwargs={'pk':1}))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_buy_delete(self):
+        """test that checks if the customer can delete a purchase"""
+        response = self.client.delete(reverse('buy-detail', kwargs={'pk':1}))
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
