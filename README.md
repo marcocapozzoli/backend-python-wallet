@@ -17,7 +17,7 @@ I chose to include some complementary business rules:
     - Values > $1000.00: cashback 8.0%
 
 Below Screenshot from the browsable API:
-![image](/readme_img/main_screen.png?raw=true "Main_Screen")
+![image](/readme_img/main_screen1.png?raw=true "Main_Screen")
 
 ## 🚀 Technologies
 
@@ -28,7 +28,7 @@ This project was developed with the following tecnologies:
 
 The reason for choosing Django and Django Rest Framework was the practicality and productivity for the creation of REST API's, besides particularly liking these tools. 🥰
 
-The database used for this application was `sqlite3`. Because it is already installed and configured with Django, it makes development a lot easier.
+The database used for this application was `sqlite3`. Because it is already installed and configured with Django, it makes the development a lot easier.
 
 ## ℹ️ How to use
 
@@ -92,7 +92,7 @@ With the token you can normally use the API, remembering to pass the token in th
 Example with Postman:
 ![image](/readme_img/Postman_GET_api-buy.png?raw=true "Postman Get_api/buy")
 
-- If you want to use the navigable API (which is much more interesting) you can authenticate by entering the username and password created earlier
+- If you want to use the browsable API (which is much more interesting) you can authenticate by entering the username and password created earlier
 ![image](/readme_img/drfweb_noauthentication.png?raw=true "drfweb noauthentication")
 ![image](/readme_img/drfweb_login_screen.png?raw=true "drfweb login_screen")
 
