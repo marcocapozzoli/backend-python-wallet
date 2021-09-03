@@ -92,3 +92,30 @@ class BuySerializerTestCase(APITestCase):
         self.assertEqual(data_product, self.product_attributes)
         self.assertEqual(data['amount'], self.buy.amount)
         self.assertEqual(data['cashback'], self.buy.cashback)
+
+    def test_buy_wrong_validate_cpf(self):
+        """test that checks the validation of the invalid cpf"""
+        data = {
+            "customer":{
+                "name":"maistodos",
+                "cpf":"00000000000"
+            },
+            "products":[],
+            "amount":0
+        }
+        serializer = BuySerializer(data=data)
+        self.assertEqual(serializer.is_valid(), False)
+        self.assertEqual(set(serializer.errors.keys()), set(['cpf']))
+        
+    def test_buy_correct_validate_cpf(self):
+        """test that checks the validation of valid cpf"""
+        data = {
+            "customer":{
+                "name":"maistodos",
+                "cpf":"40495330060"
+            },
+            "products":[],
+            "amount": 0
+        }
+        serializer = BuySerializer(data=data)
+        self.assertEqual(serializer.is_valid(), True)
